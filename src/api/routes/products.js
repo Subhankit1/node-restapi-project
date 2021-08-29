@@ -1,6 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const checkAuth = require('../middleware/check-auth');
+const checkAdmin = require('../middleware/check-admin');
 
 
 //import multer -> it is body-parser type and help to parsing file or image
@@ -27,13 +28,13 @@ const ProductsController = require('../controller/product');
 //Handle incoming req of products
 router.get('/', ProductsController.products_get_all);
 
-router.post('/', checkAuth, upload.single('productImage'), ProductsController.create_product);
+router.post('/', checkAdmin, upload.single('productImage'), ProductsController.create_product);
 
 router.get('/:productId', ProductsController.products_get_byid);
 
-router.patch('/:productId', checkAuth, ProductsController.update_product);
+router.patch('/:productId', checkAdmin, ProductsController.update_product);
 
-router.delete('/:productId', checkAuth,ProductsController.delete_product);
+router.delete('/:productId', checkAdmin,ProductsController.delete_product);
  
 
 module.exports = router;
